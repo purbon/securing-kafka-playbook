@@ -13,7 +13,7 @@ services:
     build: kafka/
     container_name: kafka
     environment:
-      - KAFKA_OPTS=-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf 
+      - KAFKA_OPTS=-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf
     depends_on: 
       - zookeeper
     restart: on-failure

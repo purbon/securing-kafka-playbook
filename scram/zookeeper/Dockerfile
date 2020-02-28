@@ -1,4 +1,4 @@
-FROM centos:centos7
+FROM centos:centos8
 MAINTAINER d.gasparina@gmail.com
 ENV container docker
 
@@ -8,7 +8,7 @@ COPY confluent.repo /etc/yum.repos.d/confluent.repo
 RUN yum clean all
 
 # 2. Install zookeeper and kafka
-RUN yum install -y java-1.8.0-openjdk
+RUN yum install -y java-11-openjdk-devel
 RUN yum install -y confluent-platform-2.12
 
 # 3. Configure Kafka and zookeeper for Kerberos 
