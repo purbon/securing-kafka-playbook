@@ -1,47 +1,43 @@
-version: '3'
+---
+version: '2'
 services:
   zookeeper:
-    build: zookeeper/
+    image: confluentinc/cp-zookeeper:5.4.0
     container_name: zookeeper
-    hostname: zookeeper
-    domainname: confluent.local
-    restart: on-failure
-    networks:
-      default:
-        aliases:
-          - zookeeper.confluent.local
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
 
   kafka:
-    build: kafka/
+    image: confluentinc/cp-enterprise-kafka:5.4.0
     container_name: kafka
-    hostname: kafka
-    domainname: confluent.local
     depends_on:
       - zookeeper
-    restart: on-failure
+    ports:
+      - 9092:9092
+    volumes:
+      - ./certs/:/etc/kafka/secrets/
+      - ./kafka/:/etc/kafka/
     environment:
-       - KAFKA_OPTS=-Dcom.sun.security.enableCRLDP=true -Dcom.sun.net.ssl.checkRevocation=true
-    #  - KAFKA_OPTS=-Djavax.net.debug=all -Djava.security.debug=all
-    volumes:
-      - ./certs/:/var/lib/secret
-    networks:
-      default:
-        aliases:
-          - kafka.confluent.local
-    ports:
-      - "9093:9093"
-
-  apache:
-    image: 'httpd:2.4'
-    container_name: httpd
-    hostname: httpd
-    ports:
-      - "18080:80"
-    volumes:
-      - ./web/:/usr/local/apache2/htdocs/
-
-volumes:
-  secret: {}
-
-networks:
-  default:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,SSL:SSL,SSL_HOST:SSL
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,SSL://kafka:29093, SSL_HOST://localhost:9092
+      KAFKA_METRIC_REPORTERS: io.confluent.metrics.reporter.ConfluentMetricsReporter
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICTION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: kafka:29092
+      CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
+      CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
+      CONFLUENT_METRICS_ENABLE: 'true'
+      CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+      KAFKA_SSL_TRUSTSTORE_FILENAME: kafka.truststore
+      KAFKA_SSL_KEYSTORE_CREDENTIALS: credentials.txt
+      KAFKA_SSL_KEY_CREDENTIALS: credentials.txt
+      KAFKA_SSL_TRUSTSTORE_CREDENTIALS: credentials.txt
+      KAFKA_SSL_KEYSTORE_FILENAME: kafka.keystore
+      KAFKA_AUTHORIZER_CLASS: kafka.security.auth.SimpleAclAuthorizer
+      KAFKA_SSL_CLIENT_AUTH: required
+      KAFKA_SUPER_USERS: User:CN=kafka,OU=PS,O=Confluent Ltd,L=Berlin,ST=Berlin,C=DE;User:CN=client,OU=PS,O=Confluent Ltd,L=Berlin,ST=Berlin,C=DE;EMAILADDRESS=kafka@confluent.io,CN=client,OU=PS,O=Confluent Ltd,L=Berlin,ST=Berlin,C=DE
