@@ -2,8 +2,21 @@
 set -e
 
 # Starting docker-compose services
-docker-compose up -d --build
+docker-compose up -d
+
+sleep 10
+
+docker-compose exec kafka kafka-acls --bootstrap-server kafka:29093 --command-config /etc/kafka/admin.properties \
+ --add --allow-principal "User:1.2.840.113549.1.9.1=#16126b61666b6140636f6e666c75656e742e696f,CN=client,OU=PS,O=Confluent Ltd,L=Berlin,ST=Berlin,C=DE" \
+ --producer --topic test
+
+ docker-compose exec kafka kafka-acls --bootstrap-server kafka:29093 --command-config /etc/kafka/admin.properties \
+  --add --allow-principal "User:1.2.840.113549.1.9.1=#16126b61666b6140636f6e666c75656e742e696f,CN=client,OU=PS,O=Confluent Ltd,L=Berlin,ST=Berlin,C=DE" \
+  --consumer --group "*" --topic test
+
+docker-compose exec kafka kafka-topics --bootstrap-server kafka:29093 --create --topic test \
+--partitions 1 --replication-factor 1 --command-config /etc/kafka/admin.properties
 
 echo "Example configuration to access kafka:"
-echo "-> docker-compose exec kafka kafka-console-producer --broker-list localhost:9092 --topic test --producer.config /etc/kafka/consumer.properties"
-echo "-> docker-compose exec kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic test --consumer.config /etc/kafka/consumer.properties --from-beginning"
+echo "-> docker-compose exec kafka kafka-console-producer --broker-list localhost:9092 --topic test --producer.config /etc/kafka/client.properties"
+echo "-> docker-compose exec kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic test --consumer.config /etc/kafka/client.properties --from-beginning"
