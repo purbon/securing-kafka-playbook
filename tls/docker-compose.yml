@@ -7,7 +7,10 @@ services:
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-
+    networks:
+      default:
+        aliases:
+          - zookeeper
   kafka:
     image: confluentinc/cp-enterprise-kafka:5.4.0
     container_name: kafka
@@ -40,4 +43,10 @@ services:
       KAFKA_SSL_KEYSTORE_FILENAME: kafka.keystore
       KAFKA_AUTHORIZER_CLASS: kafka.security.auth.SimpleAclAuthorizer
       KAFKA_SSL_CLIENT_AUTH: required
-      KAFKA_SUPER_USERS: User:CN=kafka,OU=PS,O=Confluent Ltd,L=Berlin,ST=Berlin,C=DE;User:CN=client,OU=PS,O=Confluent Ltd,L=Berlin,ST=Berlin,C=DE;EMAILADDRESS=kafka@confluent.io,CN=client,OU=PS,O=Confluent Ltd,L=Berlin,ST=Berlin,C=DE
+      KAFKA_SUPER_USERS: User:kafka;User:client
+      KAFKA_LOG4J_LOGGERS: kafka.controller=WARN,kafka.authorizer.logger=DEBUG
+      KAFKA_LOG4J_ROOT_LOGLEVEL: DEBUG
+    networks:
+      default:
+        aliases:
+          - localhost

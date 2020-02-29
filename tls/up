@@ -5,5 +5,5 @@ set -e
 docker-compose up -d --build
 
 echo "Example configuration to access kafka:"
-echo "-> docker-compose exec kafka kafka-console-producer --broker-list kafka:29093 --topic test --producer.config /etc/kafka/consumer.properties"
-echo "-> docker-compose exec kafka kafka-console-consumer --bootstrap-server kafka:29093 --topic test --consumer.config /etc/kafka/consumer.properties --from-beginning"
+echo "-> docker-compose exec kafka kafka-console-producer --broker-list localhost:9092 --topic test --producer.config /etc/kafka/consumer.properties"
+echo "-> docker-compose exec kafka kafka-console-consumer --bootstrap-server localhost:9092 --topic test --consumer.config /etc/kafka/consumer.properties --from-beginning"
