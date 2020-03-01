@@ -1,19 +1,50 @@
-version: '3'
+---
+version: '2'
 services:
-
   zookeeper:
-    build: zookeeper/
+    image: confluentinc/cp-zookeeper:5.4.0
     container_name: zookeeper
-    hostname: zookeeper
-    restart: on-failure
+    volumes:
+      - ./zookeeper/:/etc/kafka/
+    ports:
+      - 2181:2181
     environment:
-      - KAFKA_OPTS=-Djava.security.auth.login.config=/etc/kafka/zookeeper_server_jaas.conf 
+      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/zookeeper.sasl.jaas.config
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+      KAFKA_OPTS: ' -Djava.security.auth.login.config=/etc/kafka/zookeeper.sasl.jaas.config -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -DrequireClientAuthScheme=sasl'
+
+
 
   kafka:
-    build: kafka/
+    image: confluentinc/cp-enterprise-kafka:5.4.0
     container_name: kafka
-    environment:
-      - KAFKA_OPTS=-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf
-    depends_on: 
+    hostname: kafka
+    depends_on:
       - zookeeper
-    restart: on-failure
+    ports:
+      - 9093:9093
+    volumes:
+      - ./kafka/:/etc/kafka/
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_LISTENERS: SASL_PLAINTEXT://0.0.0.0:9093
+      KAFKA_ADVERTISED_LISTENERS: SASL_PLAINTEXT://kafka:9093
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICTION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      # Scram Authentication mechanism
+      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/kafka.sasl.jaas.config
+      KAFKA_SASL_ENABLED_MECHANISMS: SCRAM-SHA-256
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: SCRAM-SHA-256
+      KAFKA_LISTENER_NAME_SASL_PLAINTEXT_SCRAM-SHA-256_SASL_JAAS_CONFIG: org.apache.kafka.common.security.scram.ScramLoginModule required \ username="kafka" \ password="kafka";
+      KAFKA_SECURITY_INTER_BROKER_PROTOCOL: SASL_PLAINTEXT
+      # Acls setup
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: 'false'
+      KAFKA_SUPER_USERS: User:kafka
+      KAFKA_ZOOKEEPER_SET_ACL: "true"
+      KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.auth.SimpleAclAuthorizer
+      # Others
+      KAFKA_DELETE_TOPIC_ENABLE: "true"
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
