@@ -54,10 +54,10 @@ services:
       KAFKA_SSL_CLIENT_AUTH: required
       KAFKA_DELETE_TOPIC_ENABLE: "true"
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "false"
-      KAFKA_SUPER_USERS: User:kafka;User:client
+      KAFKA_SUPER_USERS: User:kafka
       KAFKA_LOG4J_LOGGERS: kafka.controller=WARN,kafka.authorizer.logger=DEBUG
       #KAFKA_LOG4J_ROOT_LOGLEVEL: DEBUG
-      KAFKA_SSL_PRINCIPAL_MAPPING_RULES: RULE:^.*?,CN=(.*?),OU=PS.*$$/$$1/,DEFAULT
+      KAFKA_SSL_PRINCIPAL_MAPPING_RULES: RULE:^CN=(.*?),.*$$/$$1/,DEFAULT
       KAFKA_ZOOKEEPER_SET_ACL: "false"
       CONFLUENT_SUPPORT_METRICS_ENABLE: "false"
       SSL_ENABLED_PROTOCOLS: TLSv1.2

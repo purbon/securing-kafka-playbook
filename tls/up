@@ -6,14 +6,6 @@ docker-compose up -d
 
 sleep 10
 
-docker-compose exec kafka kafka-acls --bootstrap-server kafka:29093 --command-config /etc/kafka/admin.properties \
- --add --allow-principal "User:1.2.840.113549.1.9.1=#16126b61666b6140636f6e666c75656e742e696f,CN=client,OU=PS,O=Confluent Ltd,L=Berlin,ST=Berlin,C=DE" \
- --producer --topic test
-
- docker-compose exec kafka kafka-acls --bootstrap-server kafka:29093 --command-config /etc/kafka/admin.properties \
-  --add --allow-principal "User:1.2.840.113549.1.9.1=#16126b61666b6140636f6e666c75656e742e696f,CN=client,OU=PS,O=Confluent Ltd,L=Berlin,ST=Berlin,C=DE" \
-  --consumer --group "*" --topic test
-
 docker-compose exec kafka kafka-topics --bootstrap-server kafka:29093 --create --topic test \
 --partitions 1 --replication-factor 1 --command-config /etc/kafka/admin.properties
 
