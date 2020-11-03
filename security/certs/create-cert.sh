@@ -25,6 +25,10 @@ DNS_ALT_NAMES=$(printf '%s\n' "DNS.1 = $i" "DNS.2 = localhost")
 DNS_ALT_NAMES=$(printf '%s\n' "$DNS_ALT_NAMES" "DNS.3 = broker" "DNS.4 = kafka")
 #fi
 
+if [[ "$i" == "thusnelda" ]]; then
+DNS_ALT_NAMES=$(printf '%s\n' "DNS.1 = $i" "DNS.2 = localhost")
+fi
+
 # Sign the host certificate with the certificate authority (CA)
 # Set a random serial number (avoid problems from using '-CAcreateserial' when parallelizing certificate generation)
 CERT_SERIAL=$(awk -v seed="$RANDOM" 'BEGIN { srand(seed); printf("0x%.4x%.4x%.4x%.4x\n", rand()*65535 + 1, rand()*65535 + 1, rand()*65535 + 1, rand()*65535 + 1) }')
