@@ -115,14 +115,6 @@ services:
       KAFKA_CONFLUENT_METADATA_SERVER_ADVERTISED_LISTENERS: https://broker:8090
       KAFKA_CONFLUENT_METADATA_SERVER_OPENAPI_ENABLE: "true"
 
-      #KAFKA_CONFLUENT_METADATA_BOOTSTRAP_SERVERS: INTERNAL://localhost:9093
-      #KAFKA_CONFLUENT_METADATA_SASL_MECHANISM: PLAIN
-      #KAFKA_CONFLUENT_METADATA_SASL_JAAS_CONFIG: |
-      #                                        \
-      #                                        org.apache.kafka.common.security.plain.PlainLoginModule required \
-      #                                        username="mds" \
-      #                                        password="mds-secret";
-
       ## SSL settings for MDS
       KAFKA_CONFLUENT_METADATA_SERVER_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/mds.keystore.jks
       KAFKA_CONFLUENT_METADATA_SERVER_SSL_KEYSTORE_PASSWORD: confluent
