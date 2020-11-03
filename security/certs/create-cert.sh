@@ -21,9 +21,9 @@ keytool -keystore $i.keystore.jks -alias $i -certreq -file $i.csr -storepass con
 
 # Enables 'confluent login --ca-cert-path /etc/kafka/secrets/snakeoil-ca-1.crt --url https://kafka1:8091'
 DNS_ALT_NAMES=$(printf '%s\n' "DNS.1 = $i" "DNS.2 = localhost")
-if [[ "$i" == "mds" ]]; then
-  DNS_ALT_NAMES=$(printf '%s\n' "$DNS_ALT_NAMES" "DNS.3 = kafka1" "DNS.4 = kafka2")
-fi
+#if [[ "$i" == "mds" ]]; then
+DNS_ALT_NAMES=$(printf '%s\n' "$DNS_ALT_NAMES" "DNS.3 = broker" "DNS.4 = kafka")
+#fi
 
 # Sign the host certificate with the certificate authority (CA)
 # Set a random serial number (avoid problems from using '-CAcreateserial' when parallelizing certificate generation)
