@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+  kdc:
+    hostname: kdc.kerberos-demo.local
+    #domainname: kerberos_default
+    build: kdc/
+    container_name: kdc
+    volumes:
+      - secret:/var/lib/secret
+      - ./kdc/krb5.conf:/etc/kdc/krb5.conf
+
+volumes:
+  secret: {}
+
+networks:
+  default:
+    name: kerberos-demo.local

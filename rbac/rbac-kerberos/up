@@ -1,0 +1,11 @@
+#!/bin/sh
+set -e
+
+# Starting kerberos,
+# Avoiding starting up all services at the begining to generate the keytab first
+
+docker-compose build
+docker-compose up -d kdc
+
+./scripts/identities
+./scripts/ktabs
