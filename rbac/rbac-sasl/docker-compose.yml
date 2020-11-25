@@ -21,7 +21,7 @@ services:
     privileged: true
 
   zookeeper:
-    image: confluentinc/cp-zookeeper:5.4.0
+    image: confluentinc/cp-zookeeper:${TAG}
     hostname: zookeeper
     container_name: zookeeper
     ports:
@@ -31,7 +31,7 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   broker:
-    image: confluentinc/cp-server:5.4.0
+    image: confluentinc/cp-server:${TAG}
     hostname: broker
     container_name: broker
     depends_on:
@@ -154,12 +154,17 @@ services:
                                                     password="admin-secret";
       # ======================= OTHER BROKER STUFF =================================
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_LICENSE_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONFLUENT_SECURITY_EVENT_LOGGER_EXPORTER_KAFKA_TOPIC_REPLICAS: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_CONFLUENT_BALANCER_TOPIC_REPLICATION_FACTOR: 1
       # KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
       # CONFLUENT_METRICS_ENABLE: 'true'
       # CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
 
   schema-registry:
-    image: confluentinc/cp-schema-registry:5.4.0
+    image: confluentinc/cp-schema-registry:${TAG}
     hostname: schema-registry
     container_name: schema-registry
     ports:
@@ -199,7 +204,7 @@ services:
       SCHEMA_REGISTRY_PUBLIC_KEY_PATH: /tmp/conf/public.pem
 
   connect:
-    image: confluentinc/cp-server-connect:5.4.0
+    image: confluentinc/cp-server-connect:${TAG}
     hostname: connect
     container_name: connect
     depends_on:
@@ -292,7 +297,7 @@ services:
                                                                           metadataServerUrls="http://broker:8090";
 
   control-center:
-    image: confluentinc/cp-enterprise-control-center:5.4.0
+    image: confluentinc/cp-enterprise-control-center:${TAG}
     hostname: control-center
     container_name: control-center
     depends_on:
@@ -305,8 +310,8 @@ services:
       - ./conf:/tmp/conf
     environment:
       # CUB CLASSPATH
-      CUB_CLASSPATH: '/etc/confluent/docker/docker-utils.jar:/usr/share/java/confluent-control-center/*:/usr/share/java/rest-utils/*:/usr/share/java/confluent-common/*'
-      # CUB_CLASSPATH: '/etc/confluent/docker/docker-utils.jar:/usr/share/java/confluent-control-center/*'
+      CUB_CLASSPATH: '/usr/share/java/confluent-control-center/*:/usr/share/java/rest-utils/*:/usr/share/java/confluent-common/*:/usr/share/java/confluent-security/kafka-rest/*:/usr/share/java/kafka-rest/:/usr/share/java/cp-base-new/*'
+      CLASSPATH: "/usr/share/java/monitoring-interceptors/*"
       # general settings
       CONTROL_CENTER_BOOTSTRAP_SERVERS: 'broker:9092'
       CONTROL_CENTER_ZOOKEEPER_CONNECT: 'zookeeper:2181'
