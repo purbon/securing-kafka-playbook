@@ -7,8 +7,6 @@ services:
     hostname: zookeeper
     container_name: zookeeper
     domainname: confluent.local
-    #environment:
-    #  KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/secrets/zookeeper_jaas.conf
     volumes:
       - ./certs:/etc/kafka/secrets
     networks:
