@@ -9,6 +9,50 @@ services:
       - secret:/var/lib/secret
       - ./kdc/krb5.conf:/etc/kdc/krb5.conf
 
+  phpldapadmin-service:
+      image: osixia/phpldapadmin:0.7.2
+      container_name: ldapadmin-service
+      environment:
+        - PHPLDAPADMIN_LDAP_HOSTS=openldap
+      ports:
+        - "6444:443"
+      depends_on:
+        - openldap
+
+  openldap:
+      image: rroemhild/test-openldap
+      hostname: openldap
+      container_name: openldap
+      ports:
+        - "389:389"
+      privileged: true
+
+  zookeeper:
+      build: zookeeper/
+      hostname: zookeeper.kerberos-demo.local
+      container_name: zookeeper
+      depends_on:
+        - kdc
+      restart: on-failure
+      volumes:
+        - secret:/var/lib/secret
+        - ./kdc/krb5.conf:/etc/krb5.conf
+
+  kafka:
+    build: kafka/
+    container_name: kafka
+    hostname: kafka.kerberos-demo.local
+    #domainname: kerberos_default
+    depends_on:
+      - zookeeper
+      - kdc
+    # Required to wait for the keytab to get generated
+    restart: on-failure
+    volumes:
+      - secret:/var/lib/secret
+      - ./kdc/krb5.conf:/etc/krb5.conf
+
+
 volumes:
   secret: {}
 

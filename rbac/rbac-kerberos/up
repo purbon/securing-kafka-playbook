@@ -9,3 +9,5 @@ docker-compose up -d kdc
 
 ./scripts/identities
 ./scripts/ktabs
+
+docker-compose up -d kafka
