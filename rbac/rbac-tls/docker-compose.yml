@@ -262,6 +262,7 @@ services:
       - "8083:8083"
     volumes:
       - ./certs/:/etc/kafka/secrets/
+      - ./kafka-connect/:/etc/kafka-connect/
       - ./conf:/tmp/conf
       - ./jvm/:/etc/kafka/jvm/
     environment:
