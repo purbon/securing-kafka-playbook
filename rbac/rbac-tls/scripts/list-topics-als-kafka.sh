@@ -2,4 +2,4 @@
 
 docker-compose exec broker kafka-topics --bootstrap-server broker:9092 \
                                         --list \
-                                        --command-config /etc/kafka/client.properties
+                                        --command-config /etc/client-configs/client.properties

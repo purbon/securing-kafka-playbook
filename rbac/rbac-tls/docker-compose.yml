@@ -54,7 +54,7 @@ services:
       - ./certs/:/etc/kafka/secrets/
       - ./conf:/tmp/conf
       - ./client-configs:/etc/client-configs
-      - ./kafka/:/etc/kafka/
+      - ./etc/kafka/:/etc/kafka/
       - ./jvm/:/etc/kafka/jvm/
     environment:
       #KAFKA_LOG4J_LOGGERS: kafka.controller=INFO,kafka.authorizer.logger=DEBUG
@@ -262,7 +262,7 @@ services:
       - "8083:8083"
     volumes:
       - ./certs/:/etc/kafka/secrets/
-      - ./kafka-connect/:/etc/kafka-connect/
+      - ./etc/kafka-connect/:/etc/kafka-connect/
       - ./conf:/tmp/conf
       - ./jvm/:/etc/kafka/jvm/
     environment:
