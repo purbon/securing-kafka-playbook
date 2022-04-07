@@ -55,7 +55,7 @@ services:
       - zookeeper02
     container_name: kafka
     volumes:
-      - "$PWD/kafka:/etc/kafka"
+      - "$PWD/kafka/1:/etc/kafka"
     ports:
       - 9092:9092
     environment:
@@ -99,7 +99,7 @@ services:
         - zookeeper02
       container_name: kafka02
       volumes:
-        - "$PWD/kafka:/etc/kafka"
+        - "$PWD/kafka/2:/etc/kafka"
       ports:
         - 9093:9093
       environment:
