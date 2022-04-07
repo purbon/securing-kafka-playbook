@@ -12,7 +12,7 @@
 
 ### Upgrade from no-digest to digest authentication
 
-ref: https://docs.confluent.io/platform/current/security/zk-security.html#sasl-authentication
+ref: https://docs.confluent.io/platform/current/kafka/incremental-security-upgrade.html#adding-sasl-security-to-zk
 
 *Initial state*
 
