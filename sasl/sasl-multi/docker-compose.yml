@@ -14,7 +14,7 @@ services:
       ZOOKEEPER_SERVER_ID: 1
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
-      ZOOKEEPER_SERVERS: "zookeeper00:22888:23888;zookeeper01:2888:3888;zookeeper02:2888:3888"
+      ZOOKEEPER_SERVERS: "zookeeper00:2888:3888;zookeeper01:2888:3888;zookeeper02:2888:3888"
       KAFKA_OPTS: '-Dzookeeper.4lw.commands.whitelist=* -Djava.security.auth.login.config=/etc/kafka/zookeeper.sasl.jaas.config -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -DrequireClientAuthScheme=sasl'
 
   zookeeper01:
@@ -29,7 +29,7 @@ services:
         ZOOKEEPER_SERVER_ID: 2
         ZOOKEEPER_CLIENT_PORT: 2182
         ZOOKEEPER_TICK_TIME: 2000
-        ZOOKEEPER_SERVERS: "zookeeper00:22888:23888;zookeeper01:2888:3888;zookeeper02:2888:3888"
+        ZOOKEEPER_SERVERS: "zookeeper00:2888:3888;zookeeper01:2888:3888;zookeeper02:2888:3888"
         KAFKA_OPTS: '-Dzookeeper.4lw.commands.whitelist=* -Djava.security.auth.login.config=/etc/kafka/zookeeper.sasl.jaas.config -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -DrequireClientAuthScheme=sasl'
 
   zookeeper02:
@@ -44,7 +44,7 @@ services:
         ZOOKEEPER_SERVER_ID: 3
         ZOOKEEPER_CLIENT_PORT: 2183
         ZOOKEEPER_TICK_TIME: 2000
-        ZOOKEEPER_SERVERS: "zookeeper00:22888:23888;zookeeper01:2888:3888;zookeeper02:2888:3888"
+        ZOOKEEPER_SERVERS: "zookeeper00:2888:3888;zookeeper01:2888:3888;zookeeper02:2888:3888"
         KAFKA_OPTS: '-Dzookeeper.4lw.commands.whitelist=* -Djava.security.auth.login.config=/etc/kafka/zookeeper.sasl.jaas.config -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -DrequireClientAuthScheme=sasl'
 
   kafka:
