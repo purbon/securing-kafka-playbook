@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "zookeeper0 status: "
-docker-compose exec zookeeper echo mntr | nc localhost 2181 | grep zk_server_state
+docker-compose exec zookeeper00 echo mntr | nc localhost 2181 | grep zk_server_state
 
 echo "zookeeper1 status: "
 docker-compose exec zookeeper01 echo mntr | nc localhost 2182 | grep zk_server_state

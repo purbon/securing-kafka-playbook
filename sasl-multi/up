@@ -12,3 +12,11 @@ docker-compose exec kafka kafka-acls --authorizer-properties zookeeper.connect=z
 
 docker exec kafka kafka-topics --bootstrap-server kafka:29092 \
                   --create --topic julieops --partitions 1 --replication-factor 1
+
+docker exec kafka kafka-topics --bootstrap-server kafka:29092 \
+                      --create --topic bar --partitions 1 --replication-factor 1
+
+
+
+docker exec kafka kafka-topics --bootstrap-server kafka02:29093 \
+                              --create --topic bar --partitions 1 --replication-factor 1
