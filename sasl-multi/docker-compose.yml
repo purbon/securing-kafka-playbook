@@ -15,7 +15,7 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
       ZOOKEEPER_SERVERS: "zookeeper00:22888:23888;zookeeper01:2888:3888;zookeeper02:2888:3888"
-      KAFKA_OPTS: '-Dzookeeper.4lw.commands.whitelist=* -Djava.security.auth.login.config=/etc/kafka/zookeeper.sasl.jaas.config -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -DrequireClientAuthScheme=sasl'
+      #KAFKA_OPTS: '-Dzookeeper.4lw.commands.whitelist=* -Djava.security.auth.login.config=/etc/kafka/zookeeper.sasl.jaas.config -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -DrequireClientAuthScheme=sasl'
 
   zookeeper01:
       image: confluentinc/cp-zookeeper:${TAG}
@@ -30,7 +30,7 @@ services:
         ZOOKEEPER_CLIENT_PORT: 2182
         ZOOKEEPER_TICK_TIME: 2000
         ZOOKEEPER_SERVERS: "zookeeper00:22888:23888;zookeeper01:2888:3888;zookeeper02:2888:3888"
-        KAFKA_OPTS: '-Dzookeeper.4lw.commands.whitelist=* -Djava.security.auth.login.config=/etc/kafka/zookeeper.sasl.jaas.config -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -DrequireClientAuthScheme=sasl'
+        #KAFKA_OPTS: '-Dzookeeper.4lw.commands.whitelist=* -Djava.security.auth.login.config=/etc/kafka/zookeeper.sasl.jaas.config -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -DrequireClientAuthScheme=sasl'
 
   zookeeper02:
       image: confluentinc/cp-zookeeper:${TAG}
@@ -45,7 +45,7 @@ services:
         ZOOKEEPER_CLIENT_PORT: 2183
         ZOOKEEPER_TICK_TIME: 2000
         ZOOKEEPER_SERVERS: "zookeeper00:22888:23888;zookeeper01:2888:3888;zookeeper02:2888:3888"
-        KAFKA_OPTS: '-Dzookeeper.4lw.commands.whitelist=* -Djava.security.auth.login.config=/etc/kafka/zookeeper.sasl.jaas.config -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -DrequireClientAuthScheme=sasl'
+        #KAFKA_OPTS: '-Dzookeeper.4lw.commands.whitelist=* -Djava.security.auth.login.config=/etc/kafka/zookeeper.sasl.jaas.config -Dzookeeper.authProvider.1=org.apache.zookeeper.server.auth.SASLAuthenticationProvider -DrequireClientAuthScheme=sasl'
 
   kafka:
     image: confluentinc/cp-enterprise-kafka:${TAG}
@@ -61,23 +61,33 @@ services:
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_ZOOKEEPER_CONNECT: zookeeper00:2181,zookeeper01:2182,zookeeper02:2183
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,SASL_PLAINTEXT:SASL_PLAINTEXT,SASL_PLAINTEXT_HOST:SASL_PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: SASL_PLAINTEXT
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,SASL_PLAINTEXT://kafka:29093,SASL_PLAINTEXT_HOST://localhost:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT,INTERNAL:SASL_PLAINTEXT,EXTERNAL:SASL_PLAINTEXT
+      KAFKA_INTER_BROKER_LISTENER_NAME: INTERNAL
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:29092,INTERNAL://kafka:29093,EXTERNAL://localhost:9092
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 100
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
       CONFLUENT_SUPPORT_METRICS_ENABLE: 'false'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
-      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
       KAFKA_AUTHORIZER_CLASS_NAME: 'kafka.security.authorizer.AclAuthorizer'
-      KAFKA_MECHANISMS_INTER_BROKER_PROTOCOL: 'SASL_PLAINTEXT'
+      KAFKA_SASL_ENABLED_MECHANISMS: 'PLAIN'
       KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: 'PLAIN'
       KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: 'true'
       KAFKA_SUPER_USERS: 'User:kafka;User:ANONYMOUS'
-      KAFKA_OPTS: '-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf'
+      KAFKA_LISTENER_NAME_INTERNAL_PLAIN_SASL_JAAS_CONFIG: "org.apache.kafka.common.security.plain.PlainLoginModule required \
+        username=\"kafka\" \
+        password=\"kafka\" \
+        user_kafka=\"kafka\" \
+        user_alice=\"alice-secret\";"
+      KAFKA_LISTENER_NAME_EXTERNAL_PLAIN_SASL_JAAS_CONFIG: "org.apache.kafka.common.security.plain.PlainLoginModule required \
+        username=\"kafka\" \
+        password=\"kafka\" \
+        user_kafka=\"kafka\" \
+        user_alice=\"alice-secret\";"
+      #KAFKA_OPTS: '-Djava.security.auth.login.config=/etc/kafka/kafka_server_jaas.conf'
       KAFKA_LOG4J_LOGGERS: "kafka.authorizer.logger=DEBUG"
+
 
   kafka-connect:
     build:
