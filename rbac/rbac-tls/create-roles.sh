@@ -59,7 +59,7 @@ confluent iam rolebinding create \
     --schema-registry-cluster-id $SR
 
 # ResourceOwner for groups and topics on broker
-for resource in Topic:_schemas Group:schema-registry
+for resource in Topic:_schemas Group:schema-registry Topic:_confluent-license
 do
     confluent iam rolebinding create \
         --principal $SR_PRINCIPAL \
@@ -95,6 +95,11 @@ do
         --resource $resource \
         --kafka-cluster-id $KAFKA_CLUSTER_ID
 done
+
+confluent iam rolebinding create \
+    --principal $CONNECT_PRINCIPAL  \
+    --role SystemAdmin \
+    --kafka-cluster-id $KAFKA_CLUSTER_ID
 
 ################################### C3 ###################################
 echo "Creating C3 role bindings"
