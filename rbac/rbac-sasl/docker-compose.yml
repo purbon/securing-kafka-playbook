@@ -12,21 +12,13 @@ services:
     depends_on:
       - openldap
 
-  openldap:
-    image: rroemhild/test-openldap
-    hostname: openldap
-    container_name: openldap
-    ports:
-      - "389:389"
-    privileged: true
-
-
   ldap:
     image: osixia/openldap:1.5.0
     hostname: ldap
     container_name: ldap
     ports:
       - "1389:389"
+      - "1636:636"
     #tty: true
     #stdin_open: true
     environment:
