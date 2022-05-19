@@ -6,3 +6,22 @@ member: cn=Turanga Leela,ou=service_account,dc=test,dc=com
 member: cn=Bender Bending Rodriguez,ou=service_account,dc=test,dc=com
 member: cn=Hermes Conrad,ou=service_account,dc=test,dc=com
 member: cn=Hubert J. Farnsworth,ou=service_account,dc=test,dc=com
+
+dn: cn=kafka devs,ou=groups,dc=test,dc=com
+objectClass: top
+objectClass: posixGroup
+cn: kafkadevs
+gidNumber: 5000
+memberuid: cn=Philip J. Fry,ou=service_account,dc=test,dc=com
+memberuid: cn=Turanga Leela,ou=service_account,dc=test,dc=com
+memberuid: cn=Bender Bending Rodriguez,ou=service_account,dc=test,dc=com
+memberuid: cn=Hermes Conrad,ou=service_account,dc=test,dc=com
+memberuid: cn=Hubert J. Farnsworth,ou=service_account,dc=test,dc=com
+
+dn: cn=kafka admins,ou=groups,dc=test,dc=com
+objectClass: top
+objectClass: posixGroup
+cn: kafka_admins
+gidNumber: 5001
+memberuid: cn=Hermes Conrad,ou=service_account,dc=test,dc=com
+memberuid: cn=Hubert J. Farnsworth,ou=service_account,dc=test,dc=com

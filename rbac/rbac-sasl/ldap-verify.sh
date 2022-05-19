@@ -14,18 +14,35 @@ docker-compose exec ldap ldapsearch -LLL -x -H ldap://ldap:389 -b 'ou=service_ac
 
 docker-compose exec ldap  ldapsearch -LLL -x -H ldap://ldap:389 -b 'ou=people,dc=test,dc=com' -D "cn=mds,dc=test,dc=com" -w 'Developer!' - "(objectclass=posixGroup)"
 
+
 ldapsearch \
 -H ldap://ldap:389 \
 -x \
 -D "cn=mds,dc=test,dc=com" \
 -w 'Developer!' \
--b "ou=people,dc=test,dc=com" \
+-b "dc=test,dc=com" \
 -s sub \
 -v \
 -LLL \
-"(&(objectClass=posixGroup)(cn=ship_crew))" \
-dn objectClass cn memberuid
+"(&(objectClass=inetOrgPerson)(|(ou:dn:=service_account)(ou:dn:=people)))" \
+dn objectClass cn uid
 
+ldapsearch \
+-H ldap://ldap:389 \
+-x \
+-D "cn=mds,dc=test,dc=com" \
+-w 'Developer!' \
+-b "dc=test,dc=com" \
+-s sub \
+-v \
+-LLL \
+"(&(objectClass=inetOrgPerson)(&(objectClass=inetOrgPerson)(|(ou:dn:=service_account)(ou:dn:=people)))(uid={0}))" \
+dn
+
+(&(objectClass=inetOrgPerson)(objectClass=inetOrgPerson)(uid={0}))
+
+(&(objectClass=inetOrgPerson)(&(objectClass=inetOrgPerson)(|(ou:dn:=service_account)(ou:dn:=people)))(uid={0}))
+(&(objectClass=inetOrgPerson)(&(objectClass=inetOrgPerson)(|(ou:dn:=service_account)(ou:dn:=people)))(uid={0}))"
 
 dn: cn=professor,ou=service_account,dc=test,dc=com
 changetype: add
