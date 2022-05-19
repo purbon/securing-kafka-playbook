@@ -1,0 +1,8 @@
+dn: CN=Kafka Developers,ou=groups,dc=test,dc=com
+cn: kafkadev
+objectClass: groupOfNames
+member: cn=Philip J. Fry,ou=service_account,dc=test,dc=com
+member: cn=Turanga Leela,ou=service_account,dc=test,dc=com
+member: cn=Bender Bending Rodriguez,ou=service_account,dc=test,dc=com
+member: cn=Hermes Conrad,ou=service_account,dc=test,dc=com
+member: cn=Hubert J. Farnsworth,ou=service_account,dc=test,dc=com

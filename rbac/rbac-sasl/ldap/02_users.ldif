@@ -1,0 +1,114 @@
+dn: cn=Amy Wong+sn=Kroker,ou=service_account,dc=test,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Amy Wong
+sn: Kroker
+description: Human
+givenName: Amy
+mail: amy@planetexpress.com
+ou: Intern
+uid: amy
+userPassword:: e1NTSEF9d0p2OXMyWjltMGJTMFIxV1k3QjdCRWZEVVZPQzg2Y3BWL3VDMHc9PQ==
+
+dn: cn=Bender Bending Rodriguez,ou=service_account,dc=test,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: cn=Bender Bending Rodriguez
+sn: Rodriguez
+description: Robot
+displayName: Bender
+employeeType: Ship's Robot
+givenName: Bender
+mail: bender@planetexpress.com
+ou: Delivering Crew
+uid: bender
+userPassword:: e3NzaGF9amxCTnNmVVdKK0tIWHprRFVuYTJSSTBjK09PNmlGdzAxZHd3K3c9PQ==
+
+dn: cn=Philip J. Fry,ou=service_account,dc=test,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: Philip J. Fry
+sn: Fry
+description: Human
+displayName: Fry
+employeeType: Delivery boy
+givenName: Philip
+mail: fry@planetexpress.com
+ou: Delivering Crew
+uid: fry
+userPassword:: e3NzaGF9d0wvVG0wSHNaeU90K29jbXlrU290UkpURnczd0ZKOWRlaEU4eFE9PQ==
+
+dn: cn=Hermes Conrad,ou=service_account,dc=test,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: Hermes Conrad
+sn: Conrad
+description: Human
+employeeType: Bureaucrat
+employeeType: Accountant
+givenName: Hermes
+mail: hermes@planetexpress.com
+ou: Office Management
+uid: hermes
+userPassword:: e3NzaGF9M3UzcUdCSmFMc2tiUEg0OVJrYlFtUk9HTktFb1lOUXZkU2lOZmc9PQ==
+
+
+dn: cn=Turanga Leela,ou=service_account,dc=test,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: Turanga Leela
+sn: Turanga
+description: Mutant
+employeeType: Captain
+employeeType: Pilot
+givenName: Leela
+mail: leela@planetexpress.com
+ou: Delivering Crew
+uid: leela
+userPassword:: e3NzaGF9eCtEOFJJTDFQNUJ3OFo1N28ra2tFeDlLNm14d0JSY0tSNmo1R2c9PQ==
+
+dn: cn=Hubert J. Farnsworth,ou=service_account,dc=test,dc=com
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: Hubert J. Farnsworth
+sn: Farnsworth
+description: Human
+displayName: Professor Farnsworth
+employeeType: Owner
+employeeType: Founder
+givenName: Hubert
+mail: professor@planetexpress.com
+mail: hubert@planetexpress.com
+ou: Office Management
+title: Professor
+uid: professor
+userPassword:: e3NzaGF9azRDRS9ta3Frb3NFampzVkhJWEhGMTFaU0h6ZVExUzdhdnQveWc9PQ==
+
+dn: cn=John A. Zoidberg,ou=service_account,dc=test,dc=com
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+cn: John A. Zoidberg
+sn: Zoidberg
+description: Decapodian
+displayName: Zoidberg
+employeeType: Doctor
+givenName: John
+mail: zoidberg@planetexpress.com
+ou: Staff
+title: Ph.D.
+uid: zoidberg
+userPassword:: e3NzaGF9UEgvVjZ3S3Mxc3lRems0RGFCd0hXdlJQNmhlZ2xQWmtCR2hWdUE9PQ==

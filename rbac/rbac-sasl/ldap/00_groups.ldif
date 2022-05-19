@@ -1,0 +1,14 @@
+dn: ou=people,dc=test,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: people
+
+dn: ou=service_account,dc=test,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: service_account
+
+dn: ou=groups,dc=test,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: groups

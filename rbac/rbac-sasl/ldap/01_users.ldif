@@ -1,0 +1,36 @@
+dn: cn=jsmith,ou=people,dc=test,dc=com
+changetype: add
+objectClass: inetOrgPerson
+description: John Smith from Accounting.  John is the project
+  manager of the building project, so contact him with any que
+ stions.
+sn: Smith
+uid: jsmith1
+userPassword: jsmith-secret
+
+dn: cn=sbrown,ou=people,dc=test,dc=com
+changetype: add
+objectClass: inetOrgPerson
+description: Sally Brown from engineering.  Sally is responsibl
+ e for designing the blue prints and testing the structural int
+ egrity of the design.
+sn: Brown
+uid: sbrown20
+userPassword: sbrown-secret
+
+dn: cn=alice,ou=people,dc=test,dc=com
+changetype: add
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: alice
+sn: LookingGlass
+givenName: Alice
+cn: alice
+displayName: Alice LookingGlass
+uidNumber: 10000
+gidNumber: 5000
+userPassword: alice-secret
+gecos: alice
+loginShell: /bin/bash
+homeDirectory: /home/alice
