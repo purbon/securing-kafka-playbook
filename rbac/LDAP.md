@@ -10,3 +10,20 @@ Successful group cache:
 
 [2022-05-19 10:09:56,016] DEBUG Search completed, group cache is {Hubert J. Farnsworth=[kafkadev], Hermes Conrad=[kafkadev], Bender Bending Rodriguez=[kafkadev], Turanga Leela=[kafkadev], Philip J. Fry=[kafkadev]} (io.confluent.security.auth.provider.ldap.LdapGroupManager)
 ```
+
+
+## Userful LDAP filters
+
+
+Only log in from a certain group:
+
+```bash
+ (&(|(ou:dn:=service_account)(ou:dn:=people))(memberOf=cn=Kafka Developers,ou=groups,dc=test,dc=com))
+ ```
+
+
+ Only log in from two given OU:
+
+ ```bash
+  (|(ou:dn:=service_account)(ou:dn:=people))
+  ```
