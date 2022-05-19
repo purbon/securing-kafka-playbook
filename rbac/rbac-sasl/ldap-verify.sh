@@ -36,13 +36,15 @@ ldapsearch \
 -s sub \
 -v \
 -LLL \
-"(&(objectClass=inetOrgPerson)(&(objectClass=inetOrgPerson)(|(ou:dn:=service_account)(ou:dn:=people)))(uid={0}))" \
-dn
+"(&(|(ou:dn:=service_account)(ou:dn:=people))(memberOf=cn=Kafka Developers,ou=groups,dc=test,dc=com))" \
+dn memberOf
 
 (&(objectClass=inetOrgPerson)(objectClass=inetOrgPerson)(uid={0}))
 
 (&(objectClass=inetOrgPerson)(&(objectClass=inetOrgPerson)(|(ou:dn:=service_account)(ou:dn:=people)))(uid={0}))
 (&(objectClass=inetOrgPerson)(&(objectClass=inetOrgPerson)(|(ou:dn:=service_account)(ou:dn:=people)))(uid={0}))"
+
+(&(|(ou:dn:=service_account)(ou:dn:=people))(memberOf=cn=kafka devs,ou=groups,dc=test,dc=com))
 
 dn: cn=professor,ou=service_account,dc=test,dc=com
 changetype: add
