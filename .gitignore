@@ -1,1 +1,3 @@
 tls-with-5.3
+security/certs/*.jks
+security/certs/c3/*
