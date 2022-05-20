@@ -12,7 +12,7 @@ docker-compose exec ldap ldapsearch -LLL -x -H ldap://ldap:389 -b 'ou=service_ac
 
 ## Other
 
-docker-compose exec ldap  ldapsearch -LLL -x -H ldap://ldap:389 -b 'ou=people,dc=test,dc=com' -D "cn=mds,dc=test,dc=com" -w 'Developer!' - "(objectclass=posixGroup)"
+docker-compose exec ldap  ldapsearch -LLL -x -H ldap://ldap:389 -b 'ou=groups,dc=test,dc=com' -D "cn=mds,dc=test,dc=com" -w 'Developer!' - "(objectclass=posixGroup)"
 
 
 ldapsearch \
