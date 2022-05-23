@@ -25,3 +25,11 @@ cn: kafka_admins
 gidNumber: 5001
 memberuid: cn=Hermes Conrad,ou=service_account,dc=test,dc=com
 memberuid: cn=Hubert J. Farnsworth,ou=service_account,dc=test,dc=com
+
+
+dn: cn=kafka users,ou=groups,dc=test,dc=com
+objectClass: top
+objectClass: posixGroup
+cn: kafka_users
+gidNumber: 5002
+memberuid: cn=bob,ou=users,dc=test,dc=com

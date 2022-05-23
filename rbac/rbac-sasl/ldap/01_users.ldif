@@ -34,3 +34,20 @@ userPassword: alice-secret
 gecos: alice
 loginShell: /bin/bash
 homeDirectory: /home/alice
+
+dn: cn=bob,ou=users,dc=test,dc=com
+changetype: add
+objectClass: inetOrgPerson
+objectClass: posixAccount
+objectClass: shadowAccount
+uid: bob
+sn: LookingGlass
+givenName: Bob
+cn: bob
+displayName: Bob LookingGlass
+uidNumber: 10001
+gidNumber: 5001
+userPassword: bob-secret
+gecos: alice
+loginShell: /bin/bash
+homeDirectory: /home/bob

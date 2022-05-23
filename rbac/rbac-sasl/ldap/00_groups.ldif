@@ -9,6 +9,11 @@ objectClass: top
 objectClass: organizationalUnit
 ou: people
 
+dn: ou=users,dc=test,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: users
+
 dn: ou=service_account,dc=test,dc=com
 objectClass: top
 objectClass: organizationalUnit
