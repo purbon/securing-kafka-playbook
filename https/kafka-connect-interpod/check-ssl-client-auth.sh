@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 
 verify_ok_ssl_client_auth () {
-  cp -f ../ca-builder-scripts/ca/intermediate/private/$1.key.pem connect/secrets/$1.key.pem
-  cp -f ../ca-builder-scripts/ca/intermediate/certs/ca-chain.cert.pem connect/secrets/ca-chain.cert.pem
-  cp -f ../ca-builder-scripts/ca/intermediate/certs/$1.cert.pem connect/secrets/$1.cert.pem
+  #cp -f ../ca-builder-scripts/ca/intermediate/private/$1.key.pem connect/secrets/$1.key.pem
+  #cp -f ../ca-builder-scripts/ca/intermediate/certs/ca-chain.cert.pem connect/secrets/ca-chain.cert.pem
+  #cp -f ../ca-builder-scripts/ca/intermediate/certs/$1.cert.pem connect/secrets/$1.cert.pem
   curl --key connect/secrets/$1.key.pem --cacert connect/secrets/ca-chain.cert.pem --cert connect/secrets/$1.cert.pem:confluent https://localhost:18083
 }
 
@@ -35,3 +35,8 @@ echo ""
 
 echo "Check SSL client auth with a valid client"
 verify_ok_ssl_client_auth "connect"
+
+
+  curl --key connect/secrets/connect.key.pem \
+       --cacert connect/secrets/ca-chain.cert.pem \
+       --cert connect/secrets/connect.cert.pem:confluent https://localhost:18083
