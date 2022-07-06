@@ -8,7 +8,9 @@ services:
       ZOOKEEPER_TICK_TIME: 2000
 
   kafka:
-    image: confluentinc/cp-enterprise-kafka:${TAG}
+    build:
+      context: kafka/
+      dockerfile: Dockerfile
     container_name: kafka
     depends_on:
       - zookeeper
