@@ -91,3 +91,88 @@ Creating Datagen source connector
 ~/work/ps/workshops/securing-kafka-playbook/https/kafka-connect-interpod on  master! ⌚ 15:11:19
 $
 ```
+
+
+### Unassigned tasks
+
+```bash
+~/work/ps/workshops/securing-kafka-playbook/https/kafka-connect-interpod on  master! ⌚ 11:12:54
+$ ./scripts/create-datagen-node0.sh                                                                                                                                                                      2.7.0
+Creating Datagen source connector
+{
+  "name": "datagen-pageviews",
+  "config": {
+    "connector.class": "io.confluent.kafka.connect.datagen.DatagenConnector",
+    "kafka.topic": "pageviews",
+    "quickstart": "pageviews",
+    "key.converter": "org.apache.kafka.connect.storage.StringConverter",
+    "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+    "value.converter.schemas.enable": "false",
+    "max.interval": "500",
+    "iterations": "50000000",
+    "tasks.max": "5",
+    "name": "datagen-pageviews"
+  },
+  "tasks": [],
+  "type": "source"
+}
+```
+
+```bash
+~/work/ps/workshops/securing-kafka-playbook/https/kafka-connect-interpod on  master! ⌚ 11:12:43
+$ ./scripts/list-connect-asign.sh                                                                                                                                                                        2.7.0
+Joined group list for kafka-connect node 0
+
+[2022-07-07 09:12:50,441] INFO [Worker clientId=connect0, groupId=kafka-connect-cp] Joined group at generation 1 with protocol version 2 and got assignment: Assignment{error=0, leader='connect0-c1082ef1-28a1-42b4-8b1e-de9fa9a1a5d6', leaderUrl='https://kafka-connect:18083/', offset=-1, connectorIds=[], taskIds=[], revokedConnectorIds=[], revokedTaskIds=[], delay=0} with rebalance delay: 0 (org.apache.kafka.connect.runtime.distributed.DistributedHerder)
+
+
+Joined group list for kafka-connect node 1
+
+[2022-07-07 09:12:53,375] INFO [Worker clientId=connect1, groupId=kafka-connect-cp] Joined group at generation 2 with protocol version 2 and got assignment: Assignment{error=0, leader='connect0-c1082ef1-28a1-42b4-8b1e-de9fa9a1a5d6', leaderUrl='https://kafka-connect:18083/', offset=1, connectorIds=[], taskIds=[], revokedConnectorIds=[], revokedTaskIds=[], delay=0} with rebalance delay: 0 (org.apache.kafka.connect.runtime.distributed.DistributedHerder)
+
+```
+
+
+```bash
+~/work/ps/workshops/securing-kafka-playbook/https/kafka-connect-interpod on  master! ⌚ 11:13:16
+$ docker stop kafka-connect1
+kafka-connect1
+
+~/work/ps/workshops/securing-kafka-playbook/https/kafka-connect-interpod on  master! ⌚ 11:13:58
+$ ./scripts/verify-distribution.sh
+{
+  "name": "datagen-pageviews",
+  "connector": {
+    "state": "RUNNING",
+    "worker_id": "kafka-connect:18083"
+  },
+  "tasks": [
+    {
+      "id": 0,
+      "state": "RUNNING",
+      "worker_id": "kafka-connect:18083"
+    },
+    {
+      "id": 1,
+      "state": "UNASSIGNED",
+      "worker_id": "connect-1:18084"
+    },
+    {
+      "id": 2,
+      "state": "RUNNING",
+      "worker_id": "kafka-connect:18083"
+    },
+    {
+      "id": 3,
+      "state": "UNASSIGNED",
+      "worker_id": "connect-1:18084"
+    },
+    {
+      "id": 4,
+      "state": "RUNNING",
+      "worker_id": "kafka-connect:18083"
+    }
+  ],
+  "type": "source"
+}
+```

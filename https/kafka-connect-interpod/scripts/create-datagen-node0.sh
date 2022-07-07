@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 echo "Creating Datagen source connector"
-curl -X PUT \
+curl -s -X PUT \
      --key connect/secrets/connect.key.pem \
      --cacert connect/secrets/ca-chain.cert.pem \
      --cert connect/secrets/connect.cert.pem:confluent \
