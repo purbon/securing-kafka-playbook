@@ -1,3 +1,16 @@
 #!/usr/bin/env bash
 
-docker-compose up -d
+MODE=$1
+FILE="docker-compose-one.yaml"
+
+if [ "$MODE" = "compact" ]
+then
+  FILE="docker-compose-compact.yaml"
+elif  [ "$MODE" = "one" ]
+then
+  FILE="docker-compose-one.yaml"
+fi
+
+echo -n "starting mode $MODE\n"
+
+docker-compose -f $FILE up -d
