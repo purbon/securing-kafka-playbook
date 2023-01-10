@@ -18,13 +18,24 @@ This is the minimum set of new configurations required to run in KRaft mode
 Kraft introduces a new command to check the metadata  quorum, this is an example of how to use it.
 
 ```bash
-$ docker exec kafka kafka-metadata-quorum --bootstrap-server kafka:29092 describe --status                               2.7.0
-ClusterId:              Yyxa-hpWRt2p5xx14kXX6Q
+$ docker exec kafka1 kafka-metadata-quorum --bootstrap-server kafka4:29095 describe --status                             2.7.0
+ClusterId:              xrx5mUMWTvaWbk157wFDKw
 LeaderId:               1
-LeaderEpoch:            1
-HighWatermark:          317
+LeaderEpoch:            2
+HighWatermark:          806
 MaxFollowerLag:         0
 MaxFollowerLagTimeMs:   0
-CurrentVoters:          [1]
-CurrentObservers:       []
+CurrentVoters:          [1,2,3]
+CurrentObservers:       [4]
+```
+
+## Commands
+
+```$ docker exec kafka1 kafka-topics --bootstrap-server kafka4:29095  --create --topic bar --partitions 3                   2.7.0
+Created topic bar.
+
+~/work/ps/workshops/securing-kafka-playbook/kraft on  master! ⌚ 16:23:03
+$ docker exec kafka1 kafka-topics --bootstrap-server kafka4:29095  --list                                                2.7.0
+bar
+foo
 ```

@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+mkdir -p kafka tmp
 MODE=$1
 FILE="docker-compose-one.yaml"
 
@@ -9,6 +10,9 @@ then
 elif  [ "$MODE" = "one" ]
 then
   FILE="docker-compose-one.yaml"
+elif  [ "$MODE" = "iso" ]
+then
+  FILE="docker-compose-iso.yaml"
 fi
 
 echo -n "starting mode $MODE\n"
