@@ -8,8 +8,6 @@ services:
     ports:
       - 9092:9092
       - 9101:9101
-    volumes:
-      - ./kafka/:/etc/kafka/
     environment:
       KAFKA_BROKER_ID: 1
       KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
@@ -29,4 +27,6 @@ services:
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
     volumes:
       - ./configure_run.sh:/tmp/configure_run.sh
+      - ./kafka/:/etc/kafka/
+      - ./tmp/:/tmp
     command: "bash -c 'if [ ! -f /tmp/configure_run.sh ]; then echo \"ERROR: Did you forget the configure_run.sh file that came with this docker-compose.yml file?\" && exit 1 ; else /tmp/configure_run.sh && /etc/confluent/docker/run ; fi'"
