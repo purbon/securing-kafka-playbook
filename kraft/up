@@ -15,6 +15,6 @@ then
   FILE="docker-compose-iso.yaml"
 fi
 
-printf "starting mode $MODE\n"
-
+printf "starting mode $MODE, docker up\n"
+printf "\n"
 docker-compose -f $FILE up -d
