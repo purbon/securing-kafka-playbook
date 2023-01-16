@@ -27,7 +27,7 @@ services:
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
     volumes:
       - ./configure_run.sh:/tmp/configure_run.sh
-      - ./kafka/1/:/etc/kafka/
+      - ./kafka-config/1/:/etc/kafka/
       - ./tmp/1/:/tmp
     command: "bash -c 'if [ ! -f /tmp/configure_run.sh ]; then echo \"ERROR: Did you forget the configure_run.sh file that came with this docker-compose.yml file?\" && exit 1 ; else /tmp/configure_run.sh && /etc/confluent/docker/run ; fi'"
 
@@ -56,7 +56,7 @@ services:
         KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       volumes:
         - ./configure_run.sh:/tmp/configure_run.sh
-        - ./kafka/2/:/etc/kafka/
+        - ./kafka-config/2/:/etc/kafka/
         - ./tmp/2/:/tmp
       command: "bash -c 'if [ ! -f /tmp/configure_run.sh ]; then echo \"ERROR: Did you forget the configure_run.sh file that came with this docker-compose.yml file?\" && exit 1 ; else /tmp/configure_run.sh && /etc/confluent/docker/run ; fi'"
 
@@ -85,6 +85,6 @@ services:
         KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
       volumes:
         - ./configure_run.sh:/tmp/configure_run.sh
-        - ./kafka/3/:/etc/kafka/
+        - ./kafka-config/3/:/etc/kafka/
         - ./tmp/3/:/tmp
       command: "bash -c 'if [ ! -f /tmp/configure_run.sh ]; then echo \"ERROR: Did you forget the configure_run.sh file that came with this docker-compose.yml file?\" && exit 1 ; else /tmp/configure_run.sh && /etc/confluent/docker/run ; fi'"

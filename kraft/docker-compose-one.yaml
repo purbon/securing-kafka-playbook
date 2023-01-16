@@ -27,6 +27,6 @@ services:
       KAFKA_LOG_DIRS: '/tmp/kraft-combined-logs'
     volumes:
       - ./configure_run.sh:/tmp/configure_run.sh
-      - ./kafka/:/etc/kafka/
+      - ./kafka-config/:/etc/kafka/
       - ./tmp/:/tmp
     command: "bash -c 'if [ ! -f /tmp/configure_run.sh ]; then echo \"ERROR: Did you forget the configure_run.sh file that came with this docker-compose.yml file?\" && exit 1 ; else /tmp/configure_run.sh && /etc/confluent/docker/run ; fi'"
