@@ -116,4 +116,5 @@ services:
         - ./configure_run.sh:/tmp/configure_run.sh
         - ./kafka/4/:/etc/kafka/
         - ./tmp/4/:/tmp
+        - ./data:/data
       command: "bash -c 'if [ ! -f /tmp/configure_run.sh ]; then echo \"ERROR: Did you forget the configure_run.sh file that came with this docker-compose.yml file?\" && exit 1 ; else /tmp/configure_run.sh && /etc/confluent/docker/run ; fi'"

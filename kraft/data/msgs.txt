@@ -1,0 +1,6 @@
+foo
+bar
+lorem
+ipsum
+sit
+amet

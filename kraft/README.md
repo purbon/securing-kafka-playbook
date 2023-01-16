@@ -39,3 +39,8 @@ $ docker exec kafka1 kafka-topics --bootstrap-server kafka4:29095  --list       
 bar
 foo
 ```
+
+
+## Scenarios
+
+### Separeted controller nodes
