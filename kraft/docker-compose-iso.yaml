@@ -3,7 +3,7 @@ version: '2'
 services:
 
   kafka1:
-    image: confluentinc/cp-enterprise-kafka:${TAG}
+    build: kafka/
     container_name: kafka1
     ports:
       - 9092:9092
@@ -32,7 +32,7 @@ services:
     command: "bash -c 'if [ ! -f /tmp/configure_run.sh ]; then echo \"ERROR: Did you forget the configure_run.sh file that came with this docker-compose.yml file?\" && exit 1 ; else /tmp/configure_run.sh && /etc/confluent/docker/run ; fi'"
 
   kafka2:
-      image: confluentinc/cp-enterprise-kafka:${TAG}
+      build: kafka/
       container_name: kafka2
       ports:
         - 9093:9093
@@ -61,7 +61,7 @@ services:
       command: "bash -c 'if [ ! -f /tmp/configure_run.sh ]; then echo \"ERROR: Did you forget the configure_run.sh file that came with this docker-compose.yml file?\" && exit 1 ; else /tmp/configure_run.sh && /etc/confluent/docker/run ; fi'"
 
   kafka3:
-      image: confluentinc/cp-enterprise-kafka:${TAG}
+      build: kafka/
       container_name: kafka3
       ports:
         - 9094:9094

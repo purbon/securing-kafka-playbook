@@ -3,7 +3,7 @@ version: '2'
 services:
 
   kafka:
-    image: confluentinc/cp-enterprise-kafka:${TAG}
+    build: kafka/
     container_name: kafka
     ports:
       - 9092:9092

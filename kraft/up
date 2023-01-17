@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
+rm -rf kafka-config tmp
 mkdir -p kafka-config tmp
+
 MODE=$1
 FILE="docker-compose-one.yaml"
 
@@ -17,4 +19,4 @@ fi
 
 printf "starting mode $MODE, docker up\n"
 printf "\n"
-docker-compose -f $FILE up -d
+docker-compose -f $FILE up --build -d

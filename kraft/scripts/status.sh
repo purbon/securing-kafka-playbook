@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
- docker exec kafka1 kafka-metadata-quorum --bootstrap-server kafka4:29095 describe --status 
+ docker exec kafka4 kafka-metadata-quorum --bootstrap-server kafka4:29095 describe --status 
