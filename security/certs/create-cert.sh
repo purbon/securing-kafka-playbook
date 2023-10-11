@@ -3,11 +3,14 @@
 CA_PATH=$( dirname ${BASH_SOURCE[0]})
 
 i=$1
+DEFAULT_DAYS=1825
+days="${2:-$DEFAULT_DAYS}"
+CN="${3:-$i}"
 
 # Create host keystore
 keytool -genkey -noprompt \
 			 -alias $i \
-			 -dname "CN=$i,OU=TEST,O=CONFLUENT,L=PaloAlto,S=Ca,C=US" \
+			 -dname "CN=$CN,OU=TEST,O=CONFLUENT,L=PaloAlto,S=Ca,C=US" \
                          -ext "SAN=dns:$i,dns:localhost" \
 			 -keystore $i.keystore.jks \
 			 -keyalg RSA \
@@ -32,13 +35,13 @@ fi
 # Sign the host certificate with the certificate authority (CA)
 # Set a random serial number (avoid problems from using '-CAcreateserial' when parallelizing certificate generation)
 CERT_SERIAL=$(awk -v seed="$RANDOM" 'BEGIN { srand(seed); printf("0x%.4x%.4x%.4x%.4x\n", rand()*65535 + 1, rand()*65535 + 1, rand()*65535 + 1, rand()*65535 + 1) }')
-openssl x509 -req -CA ${CA_PATH}/snakeoil-ca-1.crt -CAkey ${CA_PATH}/snakeoil-ca-1.key -in $i.csr -out $i-ca1-signed.crt -sha256 -days 1825 -set_serial ${CERT_SERIAL} -passin pass:confluent -extensions v3_req -extfile <(cat <<EOF
+openssl x509 -req -CA ${CA_PATH}/snakeoil-ca-1.crt -CAkey ${CA_PATH}/snakeoil-ca-1.key -in $i.csr -out $i-ca1-signed.crt -sha256 -days $days -set_serial ${CERT_SERIAL} -passin pass:confluent -extensions v3_req -extfile <(cat <<EOF
 [req]
 distinguished_name = req_distinguished_name
 x509_extensions = v3_req
 prompt = no
 [req_distinguished_name]
-CN = $i
+CN = $CN
 [v3_req]
 extendedKeyUsage = serverAuth, clientAuth
 subjectAltName = @alt_names

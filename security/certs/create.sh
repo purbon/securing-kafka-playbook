@@ -15,5 +15,11 @@ cd things
 
 echo "Creating certificates"
 printf '%s\0' "${users[@]}" | xargs -0 -I{} -n1 -P15 sh -c '../create-cert.sh "$1" > "certs-create-$1.log" 2>&1 && echo "Created certificates for $1"' -- {}
-echo "Creating certificates completed"
 cd ..
+
+rm -rf others; mkdir -p others
+
+cd others && ../create-cert.sh "kafka" 3650
+cd ..
+
+echo "Creating certificates completed"
