@@ -25,7 +25,7 @@ keytool -keystore $i.keystore.jks -alias $i -certreq -file $i.csr -storepass con
 # Enables 'confluent login --ca-cert-path /etc/kafka/secrets/snakeoil-ca-1.crt --url https://kafka1:8091'
 DNS_ALT_NAMES=$(printf '%s\n' "DNS.1 = $i.test.local" "DNS.2 = localhost")
 #if [[ "$i" == "mds" ]]; then
-DNS_ALT_NAMES=$(printf '%s\n' "$DNS_ALT_NAMES" "DNS.3 = broker" "DNS.4 = kafka")
+DNS_ALT_NAMES=$(printf '%s\n' "$DNS_ALT_NAMES" "DNS.3 = broker" "DNS.4 = kafka" "DNS.5 = kafka1" "DNS.6 = kafka2" "DNS.7 = kafka3")
 #fi
 
 if [[ "$i" == "thusnelda" ]]; then
