@@ -10,9 +10,9 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
 
-  kafka:
+  kafka1:
     image: confluentinc/cp-enterprise-kafka:${TAG}
-    container_name: kafka
+    container_name: kafka1
     depends_on:
       - zookeeper
     ports:
@@ -20,7 +20,7 @@ services:
       - 9093:9093
     volumes:
       - ./certs/:/etc/kafka/secrets/
-      - ./kafka/:/etc/kafka/
+      - ./kafka1/:/etc/kafka/
       - ./jvm/:/etc/kafka/jvm/
     environment:
       KAFKA_BROKER_ID: 1
@@ -35,9 +35,9 @@ services:
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: localhost:9092
       #CONFLUENT_METRICS_REPORTER_ZOOKEEPER_CONNECT: zookeeper:2181
       CONFLUENT_METRICS_REPORTER_SECURITY_PROTOCOL: SSL
-      CONFLUENT_METRICS_REPORTER_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/kafka.truststore
+      CONFLUENT_METRICS_REPORTER_SSL_TRUSTSTORE_LOCATION: /etc/kafka/secrets/kafka1.truststore
       CONFLUENT_METRICS_REPORTER_SSL_TRUSTSTORE_PASSWORD: confluent
-      CONFLUENT_METRICS_REPORTER_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/kafka.keystore
+      CONFLUENT_METRICS_REPORTER_SSL_KEYSTORE_LOCATION: /etc/kafka/secrets/kafka1.keystore
       CONFLUENT_METRICS_REPORTER_SSL_KEYSTORE_PASSWORD: confluent
       CONFLUENT_METRICS_REPORTER_SSL_KEY_PASSWORD: confluent
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
@@ -45,21 +45,21 @@ services:
       #CONFLUENT_METRICS_REPORTER_TOPIC_CREATE: "false"
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
       # listener.name.internal SSL, SSL_HOST
-      KAFKA_LISTENER_NAME_SSL_SSL_TRUSTSTORE_FILENAME: kafka.truststore
+      KAFKA_LISTENER_NAME_SSL_SSL_TRUSTSTORE_FILENAME: kafka1.truststore
       KAFKA_LISTENER_NAME_SSL_SSL_KEYSTORE_CREDENTIALS: credentials.txt
       KAFKA_LISTENER_NAME_SSL_SSL_KEY_CREDENTIALS: credentials.txt
       KAFKA_LISTENER_NAME_SSL_SSL_TRUSTSTORE_CREDENTIALS: credentials.txt
-      KAFKA_LISTENER_NAME_SSL_SSL_KEYSTORE_FILENAME: kafka.keystore
-      KAFKA_LISTENER_NAME_SSLHOST_SSL_TRUSTSTORE_FILENAME: kafka.truststore 
+      KAFKA_LISTENER_NAME_SSL_SSL_KEYSTORE_FILENAME: kafka1.keystore
+      KAFKA_LISTENER_NAME_SSLHOST_SSL_TRUSTSTORE_FILENAME: kafka1.truststore 
       KAFKA_LISTENER_NAME_SSLHOST_SSL_KEYSTORE_CREDENTIALS: credentials.txt
       KAFKA_LISTENER_NAME_SSLHOST_SSL_KEY_CREDENTIALS: credentials.txt
       KAFKA_LISTENER_NAME_SSLHOST_SSL_TRUSTSTORE_CREDENTIALS: credentials.txt
-      KAFKA_LISTENER_NAME_SSLHOST_SSL_KEYSTORE_FILENAME: kafka.keystore
-      KAFKA_SSL_TRUSTSTORE_FILENAME: kafka.truststore
+      KAFKA_LISTENER_NAME_SSLHOST_SSL_KEYSTORE_FILENAME: kafka1.keystore
+      KAFKA_SSL_TRUSTSTORE_FILENAME: kafka1.truststore
       KAFKA_SSL_KEYSTORE_CREDENTIALS: credentials.txt
       KAFKA_SSL_KEY_CREDENTIALS: credentials.txt
       KAFKA_SSL_TRUSTSTORE_CREDENTIALS: credentials.txt
-      KAFKA_SSL_KEYSTORE_FILENAME: kafka.keystore
+      KAFKA_SSL_KEYSTORE_FILENAME: kafka1.keystore
       KAFKA_AUTHORIZER_CLASS_NAME: kafka.security.authorizer.AclAuthorizer
       KAFKA_SSL_CLIENT_AUTH: required
       KAFKA_DELETE_TOPIC_ENABLE: "true"

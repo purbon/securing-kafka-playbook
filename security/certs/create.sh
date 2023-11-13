@@ -10,7 +10,7 @@ mkdir -p things
 # Generate CA key
 openssl req -new -x509 -keyout snakeoil-ca-1.key -out snakeoil-ca-1.crt -days 1825 -subj '/CN=ca1.test.confluentdemo.io/OU=TEST/O=CONFLUENT/L=PaloAlto/ST=Ca/C=US' -passin pass:confluent -passout pass:confluent
 
-users=(ldap kafka client schemaregistry connect connector controlcenter mds thusnelda zookeeper)
+users=(ldap kafka kafka1 kafka2 kafka3 client schemaregistry connect connector controlcenter mds thusnelda zookeeper)
 cd things
 
 echo "Creating certificates"
