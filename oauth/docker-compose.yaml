@@ -36,6 +36,7 @@ services:
     ports:
       - 9092:9092
       - 9093:9093
+      - 8091:8091
     volumes:
       - ./certs/:/etc/kafka/secrets/
       - ./kafka/:/etc/kafka/
